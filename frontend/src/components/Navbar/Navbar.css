@@ -1,0 +1,364 @@
+.navbar {
+    padding: 20px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    /* Sticky Navbar */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: white;
+}
+
+.logo {
+    height: auto;
+    width: 150px;
+}
+
+/* ── Nav Menu ── */
+.navbar-menu {
+    display: flex;
+    gap: 16px;
+    list-style: none;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-menu a {
+    text-decoration: none;
+    color: #6d6d6d;
+}
+
+.navbar-menu a:hover {
+    color: tomato;
+}
+
+.navbar .active {
+    border-bottom: 2px solid rgb(43, 56, 22);
+    padding-bottom: 2px;
+}
+
+/* ── Right Side ── */
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.navbar button {
+    background: transparent;
+    font-size: 15px;
+    padding: 10px 30px;
+    border: 1px solid tomato;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.navbar button:hover {
+    background-color: #fff4f2;
+}
+
+/* ── Cart Dot ── */
+.navbar-search-icon {
+    position: relative;
+}
+
+.navbar-search-icon .dot {
+    position: absolute;
+    min-width: 10px;
+    min-height: 10px;
+    background-color: tomato;
+    border-radius: 50%;
+    top: -8px;
+    right: -8px;
+}
+
+/* ── Profile Dropdown ── */
+.navbar-profile {
+    position: relative;
+}
+
+.nav-profile-dropdown {
+    position: absolute;
+    display: none;
+    right: 0;
+    z-index: 1;
+}
+
+.navbar-profile:hover .nav-profile-dropdown {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #fff2ef;
+    padding: 12px 25px;
+    border-radius: 4px;
+    border: 1px solid tomato;
+    outline: 2px solid white;
+    list-style: none;
+}
+
+.nav-profile-dropdown li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.nav-profile-dropdown img {
+    width: 20px;
+}
+
+.nav-profile-dropdown li:hover {
+    color: tomato;
+}
+
+/* ── Hamburger ── */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: #6d6d6d;
+    border-radius: 2px;
+}
+
+/* ── Mobile Menu ── */
+.mobile-menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 16px 25px;
+    gap: 0;
+    z-index: 99;
+    box-sizing: border-box;
+}
+
+.mobile-menu.open {
+    display: flex;
+}
+
+.mobile-menu a {
+    text-decoration: none;
+    color: #6d6d6d;
+    font-size: 15px;
+    padding: 12px 0;
+    border-bottom: 1px solid #f5e9e5;
+}
+
+.mobile-menu a:last-child {
+    border-bottom: none;
+}
+
+.mobile-menu a:hover {
+    color: tomato;
+}
+
+/* ══════════════════════════
+   Tablet (≤ 900px)
+══════════════════════════ */
+@media (max-width: 900px) {
+    .logo {
+        width: 130px;
+    }
+
+    .navbar-menu {
+        gap: 14px;
+        font-size: 14px;
+    }
+
+    .navbar-right {
+        gap: 24px;
+    }
+
+    .navbar button {
+        padding: 8px 20px;
+        font-size: 14px;
+    }
+    .navbar-menu {
+        display: none;
+    }
+}
+
+/* ══════════════════════════
+   Mobile (≤ 700px)
+══════════════════════════ */
+@media (max-width: 700px) {
+    .logo {
+        width: 100px;
+    }
+
+    .navbar-menu {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .navbar-right {
+        gap: 16px;
+    }
+
+    .navbar button {
+        padding: 7px 14px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 300px) {
+    .logo {
+        width: 80px;
+    }
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: slideLeft 0.5s ease;
+}
+
+.search-box input {
+    width: 300px;
+    padding: 10px 15px;
+    border: 1px solid tomato;
+    border-radius: 25px;
+    outline: none;
+    font-size: 15px;
+}
+
+.close-search {
+    font-size: 24px;
+    cursor: pointer;
+    color: tomato;
+    font-weight: bold;
+}
+
+.search {
+    cursor: pointer;
+}
+
+@keyframes slideLeft {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+/* navbar cender */
+.navbar-center{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.search-box{
+    display: flex;
+    align-items: center;
+    width: 90%;
+    max-width: 400px;
+    gap: 10px;
+    animation: slideSearch 0.4s ease;
+}
+
+.search-box input{
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid rgb(46, 42, 41);
+    border-radius: 25px;
+    outline: none;
+    font-size: 15px;
+}
+
+.close-search{
+    font-size: 24px;
+    cursor: pointer;
+    color: black;
+    font-weight: bold;
+}
+
+.search{
+    cursor: pointer;
+}
+
+@keyframes slideSearch{
+    from{
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to{
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+@media(max-width:1000px){
+
+    .search-box{
+        max-width: 250px;
+    }
+
+    .search-box input{
+        font-size: 12px;
+        padding: 7px 10px;
+    }
+}
+@media(max-width:700px){
+
+    .search{
+        display: none;
+    }
+
+}
+
+/* navebar */
+.close-menu{
+    cursor: pointer;
+    width: 40px;
+}
+.mob-menu{
+    border: 1px solid black;
+    width: 15px;
+}
+.mobile-menu{
+    display:none;
+}
+
+@media(max-width:900px){
+
+    .mobile-menu{
+        position:absolute;
+        top:80px;
+        left:0;
+        width:100%;
+        background:white;
+        display:flex;
+        flex-direction:column;
+        padding:20px;
+        gap:15px;
+        box-shadow:0 4px 10px rgba(0,0,0,0.1);
+        z-index:999;
+    }
+
+    .mobile-menu a{
+        text-decoration:none;
+        color:#6d6d6d;
+        font-size:16px;
+    }
+}

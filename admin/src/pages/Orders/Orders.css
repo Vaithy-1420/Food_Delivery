@@ -1,0 +1,87 @@
+.order-item {
+    display: grid;
+    grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr;
+    align-items: start;
+    gap: 24px;
+    border: 0.5px solid #F0997B;
+    border-left: 3px solid #D85A30;  /* left accent line */
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    font-size: 14px;
+    color: #505050;
+    background: #fff;
+}
+
+.order-item-food {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Each food item — thani thani pill */
+.food-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #FAECE7;
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-size: 13px;
+    color: #712B13;
+}
+
+.food-qty {
+    font-size: 12px;
+    color: #993C1D;
+    font-weight: 500;
+}
+
+.order-item-food, .order-item-name {
+    font-weight: 600; /* 600px bug fix */
+}
+
+.order-item-name {
+    font-size: 15px;
+    margin-top: 16px;
+    margin-bottom: 4px;
+    color: #1a1a1a;
+}
+
+.order-item address {
+    font-style: normal;
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+.order-item select {
+    background: #FAECE7;
+    border: 0.5px solid #F0997B;
+    border-radius: 8px;
+    max-width: max(10vw, 130px);
+    padding: 8px 10px;
+    outline: none;
+    font-size: 13px;
+    color: #712B13;
+    cursor: pointer;
+}
+
+.order-item select:hover {
+    border-color: #D85A30;
+}
+
+@media (max-width: 1000px) {
+    .order-item {
+        grid-template-columns: 0.5fr 2fr 1fr;
+        font-size: 12px;
+        padding: 14px 10px;
+        gap: 14px;
+    }
+    .order-item select {
+        padding: 5px 8px;
+        font-size: 12px;
+    }
+    .order-item img {
+        width: 38px;
+    }
+}
