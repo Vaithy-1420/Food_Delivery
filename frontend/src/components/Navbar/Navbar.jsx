@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useMemo } from 'react'
 import "./Navbar.css"
 import { assets } from '../../assets/assets'
 import { Link, useNavigate } from 'react-router-dom'
@@ -8,8 +8,10 @@ const Navbar = ({ setShowLogin }) => {
 
   const [menu, setmenu] = useState("menu");
   const [showSearch, setShowSearch] = useState(false);
-  const [showMobileMenu,setShowMobileMenu] = useState(false);
-  const { getTotalCardAmount, token, setToken } = useContext(StoreContext);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const { getTotalCardAmount, token, setToken, food_list, url } = useContext(StoreContext);
   const navigate = useNavigate();
 
   const logout = () => {
@@ -17,6 +19,30 @@ const Navbar = ({ setShowLogin }) => {
     setToken("");
     navigate("/");
   }
+
+  const handleSearchClose = () => {
+    setShowSearch(false);
+    setSearchQuery("");
+  }
+
+  const handleResultClick = (category) => {
+    handleSearchClose();
+    navigate("/");
+    setTimeout(() => {
+      const exploreSection = document.getElementById("explore-menu");
+      if (exploreSection) {
+        exploreSection.scrollIntoView({ behavior: "smooth" });
+      }
+      window.dispatchEvent(new CustomEvent("selectCategory", { detail: category }));
+    }, 100);
+  }
+
+  const filteredFoods = useMemo(() => {
+    if (searchQuery.trim().length === 0) return [];
+    return food_list.filter(food =>
+      food.name.toLowerCase().includes(searchQuery.trim().toLowerCase())
+    );
+  }, [searchQuery, food_list]);
 
   return (
     <div className='navbar'>
@@ -33,33 +59,48 @@ const Navbar = ({ setShowLogin }) => {
           <a href='#footer' onClick={() => setmenu("contact-us")} className={menu === "contact-us" ? "active" : ""}>contact us</a>
         </ul>
       ) : (
-        <div className="search-box">
-          <input
-            type="text"
-            placeholder="Search food..."
-          />
-          <span
-            className="close-search"
-            onClick={() => setShowSearch(false)}
-          >
-            ✕
-          </span>
+        <div className="search-wrapper">
+          <div className="search-box">
+            <input
+              type="text"
+              placeholder="Search food..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              autoFocus
+            />
+            <span className="close-search" onClick={handleSearchClose}>x</span>
+          </div>
+
+          {searchQuery.trim().length > 0 && (
+            <div className="search-results">
+              {filteredFoods.length > 0 ? (
+                filteredFoods.map((food) => (
+                  <div key={food._id} className="search-result-item" onClick={() => handleResultClick(food.category)}>
+                    <img src={`${url}/images/${food.image}`} alt={food.name} />
+                    <div className="search-result-info">
+                      <p className="search-result-name">{food.name}</p>
+                      <p className="search-result-category">{food.category}</p>
+                    </div>
+                    <p className="search-result-price">₹{food.price}</p>
+                  </div>
+                ))
+              ) : (
+                <div className="search-no-result">
+                  <p>No food found for "<span>{searchQuery}</span>"</p>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       )}
-      
 
       <div className="navbar-right">
 
-       {
-  !showSearch && (
-    <div
-      className='search'
-      onClick={() => setShowSearch(true)}
-    >
-      <img src={assets.search_icon} alt='' />
-    </div>
-  )
-}
+        {!showSearch && (
+          <div className='search' onClick={() => setShowSearch(true)}>
+            <img src={assets.search_icon} alt='' />
+          </div>
+        )}
 
         <div className="navbar-search-icon">
           <Link to='/card'>
@@ -69,9 +110,7 @@ const Navbar = ({ setShowLogin }) => {
         </div>
 
         {!token ? (
-          <button onClick={() => setShowLogin(true)}>
-            sign in
-          </button>
+          <button onClick={() => setShowLogin(true)}>sign in</button>
         ) : (
           <div className='navbar-profile'>
             <img src={assets.profile_icon} alt='' />
@@ -89,36 +128,30 @@ const Navbar = ({ setShowLogin }) => {
           </div>
         )}
 
+        {/* Hamburger — navbar-right உள்ளே, gap இல்ல */}
+        <div className="hamburger-wrap">
+          {!showMobileMenu ? (
+            <div className="hamburger" onClick={() => setShowMobileMenu(true)}>
+              <div className='mob-menu'></div>
+              <div className='mob-menu'></div>
+              <div className='mob-menu'></div>
+            </div>
+          ) : (
+            <div className="close-menu" onClick={() => setShowMobileMenu(false)}>✕</div>
+          )}
+        </div>
+
       </div>
-       {
-  !showMobileMenu ? (
-    <div
-      className="hamburger"
-      onClick={() => setShowMobileMenu(true)}
-    >
-      <div className='mob-menu'></div>
-      <div className='mob-menu'></div>
-      <div className='mob-menu'></div>
-    </div>
-  ) : (
-    <div
-      className="close-menu"
-      onClick={() => setShowMobileMenu(false)}
-    >
-      ✕
-    </div>
-  )
-}
-{
-  showMobileMenu && (
-    <div className="mobile-menu">
-      <Link to="/">Home</Link>
-      <a href="#explore-menu">Menu</a>
-      <a href="#app-download">Mobile App</a>
-      <a href="#footer">Contact Us</a>
-    </div>
-  )
-}
+
+      {showMobileMenu && (
+        <div className="mobile-menu">
+          <Link to="/">Home</Link>
+          <a href="#explore-menu">Menu</a>
+          <a href="#app-download">Mobile App</a>
+          <a href="#footer">Contact Us</a>
+        </div>
+      )}
+
     </div>
   )
 }

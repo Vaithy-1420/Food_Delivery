@@ -31,6 +31,13 @@ gap: 10px;
     width: 100%;
     max-height: max(40%,500px);
 }
-.place-order .cart-total button{
+    
+    .place-order .cart-total button{
     margin-top: 30px;
+}
+@media (max-width:550px){
+    .place-order{
+        display: flex;
+        flex-direction: column;        
+    }
 }
