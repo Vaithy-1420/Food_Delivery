@@ -128,7 +128,7 @@ const Navbar = ({ setShowLogin }) => {
           </div>
         )}
 
-        {/* Hamburger — navbar-right உள்ளே, gap இல்ல */}
+        {/* Hamburger — navbar-right  */}
         <div className="hamburger-wrap">
           {!showMobileMenu ? (
             <div className="hamburger" onClick={() => setShowMobileMenu(true)}>
@@ -145,10 +145,10 @@ const Navbar = ({ setShowLogin }) => {
 
       {showMobileMenu && (
         <div className="mobile-menu">
-          <Link to="/">Home</Link>
-          <a href="#explore-menu">Menu</a>
-          <a href="#app-download">Mobile App</a>
-          <a href="#footer">Contact Us</a>
+          <Link to="/" onClick={() => setShowMobileMenu(false)}>Home</Link>
+          <a href="#explore-menu" onClick={() => setShowMobileMenu(false)}>Menu</a>
+          <a href="#app-download" onClick={() => setShowMobileMenu(false)}>Mobile App</a>
+          <a href="#footer" onClick={() => setShowMobileMenu(false)}>Contact Us</a>
         </div>
       )}
 
